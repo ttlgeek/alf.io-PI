@@ -14,14 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with alf.io.  If not, see <http://www.gnu.org/licenses/>.
  */
-import {Directive, Output, HostListener, OnInit} from "@angular/core";
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
+import { Directive, Output, HostListener, OnInit } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 @Directive({
-  selector: 'alfio-key-listener'
+  selector: "alfio-key-listener"
 })
 export class ScanListenerDirective {
-
   @Output()
   scanStream: Observable<string>;
   private scanSubject: Subject<string>;
@@ -33,16 +32,15 @@ export class ScanListenerDirective {
     this.scanStream = this.scanSubject.asObservable();
   }
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener("window:keydown", ["$event"])
   onKeyboardInput(event: KeyboardEvent) {
-    if(event.key == "Enter") {
-      let read = this.buffer.splice(0, this.buffer.length).join('');
+    if (event.key == "Enter") {
+      let read = this.buffer.filter(el => el !== "AltGraph").join("");
       console.log(`read ${read}`);
       this.scanSubject.next(read);
-    } else if(["Shift", "Control","Meta","Alt"].every(k => event.key != k)){
+    } else if (["Shift", "Control", "Meta", "Alt"].every(k => event.key != k)) {
       this.buffer.push(event.key);
     }
     event.stopImmediatePropagation();
   }
-
 }
