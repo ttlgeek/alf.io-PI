@@ -55,7 +55,9 @@ export class CheckInComponent implements OnInit {
     this.account = new Account();
     this.account.url = "";
     this.progressManager = new ProgressManager();
-    this.progressManager.observable.subscribe(status => this.loading = status);
+    this.progressManager.observable.subscribe(
+      status => (this.loading = status)
+    );
     this.eventSelectionSubject = new Subject();
     this.eventSelectionListener = this.eventSelectionSubject.asObservable();
   }
