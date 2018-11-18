@@ -18,6 +18,7 @@ import {
   ConfigurationService,
   PRINTER_REMAINING_LABEL_DEFAULT_COUNTER
 } from "../../shared/configuration/configuration.service";
+import { Observable, Subject } from "rxjs";
 
 @Component({
   selector: "alfio-check-in",
